@@ -1,0 +1,869 @@
+openapi: 3.0.0
+info:
+  title: SROT Integration Swagger
+  description: Swagger
+  version: '1.0'
+  x-logo:
+    url: https://github.com/joolfe/logoBanner.png
+    backgroundColor: '#FFFFFF'
+    altText: logo
+  termsOfService: '#'
+  contact:
+    name: Scodus
+    url: https://scodus.com
+    email: scodusnp@gmail.com
+  license:
+    name: MIT
+    url: https://es.wikipedia.org/wiki/Licencia_MIT
+servers:
+  - url: https://srot-system-link.scoduscorp.com/
+    description: SROT Integration staging server
+components:
+  securitySchemes:
+    noauthAuth:
+      type: http
+      scheme: noauth
+    bearerAuth:
+      type: http
+      scheme: bearer
+tags:
+  - name: APIs SUPERADMIN PANEL
+  - name: APIs SUPERADMIN PANEL > Auth
+  - name: APIs SUPERADMIN PANEL > Replica DB Status Check
+  - name: APIs
+  - name: APIs > Auth
+  - name: APIs > Auth > v2
+paths:
+  /api/superadmin/login:
+    post:
+      tags:
+        - APIs SUPERADMIN PANEL > Auth
+      summary: login
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: scodusnp@gmail.com
+                password:
+                  type: string
+                  example: Scodus!23
+      security:
+        - noauthAuth: []
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: application/json
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/superadmin/logout:
+    post:
+      tags:
+        - APIs SUPERADMIN PANEL > Auth
+      summary: logout
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: application/json
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/superadmin/refresh-token/{refresh_token}:
+    get:
+      tags:
+        - APIs SUPERADMIN PANEL > Auth
+      summary: refresh token
+      security:
+        - noauthAuth: []
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: refresh_token
+          in: path
+          schema:
+            type: string
+          required: true
+          example: '{{refresh_token}}'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/superadmin/verify-token:
+    post:
+      tags:
+        - APIs SUPERADMIN PANEL > Auth
+      summary: verify token
+      requestBody:
+        content: {}
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/superadmin/user-detail:
+    get:
+      tags:
+        - APIs SUPERADMIN PANEL > Auth
+      summary: user detail
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/superadmin/update-user-detail:
+    post:
+      tags:
+        - APIs SUPERADMIN PANEL > Auth
+      summary: update user detail
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: P@ssw0rd
+                image:
+                  type: string
+                  format: binary
+                delete_image:
+                  type: boolean
+                  description: true|false
+                  example: 'true'
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/superadmin/change-password:
+    post:
+      tags:
+        - APIs SUPERADMIN PANEL > Auth
+      summary: change password
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                old_password:
+                  type: string
+                  example: P@ssw0rd
+                password:
+                  type: string
+                  example: P@ssw0rd1
+                password_confirmation:
+                  type: string
+                  example: P@ssw0rd1
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/superadmin/delete-user:
+    delete:
+      tags:
+        - APIs SUPERADMIN PANEL > Auth
+      summary: delete user
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/superadmin/register:
+    post:
+      tags:
+        - APIs SUPERADMIN PANEL > Auth
+      summary: register
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: integer
+                  example: '0000'
+                email:
+                  type: string
+                  example: yamaki9115@regapts.com
+                password:
+                  type: string
+                  example: P@ssw0rd
+                password_confirmation:
+                  type: string
+                  example: P@ssw0rd
+      security:
+        - noauthAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/superadmin/account-verification:
+    post:
+      tags:
+        - APIs SUPERADMIN PANEL > Auth
+      summary: account verification
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: yamaki9115@regapts.com
+                token:
+                  type: string
+      security:
+        - noauthAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/superadmin/resend-account-verification-mail:
+    post:
+      tags:
+        - APIs SUPERADMIN PANEL > Auth
+      summary: resend account verification mail
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: yamaki9115@regapts.com
+      security:
+        - noauthAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/superadmin/reset-password-mail:
+    post:
+      tags:
+        - APIs SUPERADMIN PANEL > Auth
+      summary: reset password  mail
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: yamaki9115@regapts.com
+      security:
+        - noauthAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/superadmin/reset-password-otp-verification:
+    post:
+      tags:
+        - APIs SUPERADMIN PANEL > Auth
+      summary: reset password otp verification
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: yamaki9115@regapts.com
+                token:
+                  type: string
+      security:
+        - noauthAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/superadmin/reset-password:
+    post:
+      tags:
+        - APIs SUPERADMIN PANEL > Auth
+      summary: reset password
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: yamaki9115@regapts.com
+                password:
+                  type: string
+                password_confirmation:
+                  type: string
+                token:
+                  type: string
+      security:
+        - noauthAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/superadmin/db-replica/status:
+    get:
+      tags:
+        - APIs SUPERADMIN PANEL > Replica DB Status Check
+      summary: Replica Status
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/superadmin/db-replica/show-latest-error:
+    get:
+      tags:
+        - APIs SUPERADMIN PANEL > Replica DB Status Check
+      summary: Show Latest Error
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/superadmin/db-replica/start:
+    post:
+      tags:
+        - APIs SUPERADMIN PANEL > Replica DB Status Check
+      summary: Replicate Reset
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                connection: integration
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v2/login:
+    post:
+      tags:
+        - APIs > Auth > v2
+      summary: login
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: random801@example.com
+                password:
+                  type: string
+                  example: P@ssw0rd
+                phone:
+                  type: integer
+                  example: '9741689372'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v2/register:
+    post:
+      tags:
+        - APIs > Auth > v2
+      summary: register
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: niyijog801
+                email:
+                  type: string
+                  example: random801@example.com
+                password:
+                  type: string
+                  example: P@ssw0rd
+                password_confirmation:
+                  type: string
+                  example: P@ssw0rd
+                phone:
+                  type: integer
+                  example: '9741689372'
+      security:
+        - noauthAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v2/resend-account-verification-mail:
+    post:
+      tags:
+        - APIs > Auth > v2
+      summary: request account verification
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: random801@example.com
+                phone:
+                  type: integer
+                  example: '9741689372'
+      security:
+        - noauthAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v2/account-verification:
+    post:
+      tags:
+        - APIs > Auth > v2
+      summary: account verification
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: random801@example.com
+                token:
+                  type: integer
+                  example: '670937'
+                phone:
+                  type: integer
+                  example: '9741689372'
+      security:
+        - noauthAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v2/reset-password-otp-verification:
+    post:
+      tags:
+        - APIs > Auth > v2
+      summary: reset password otp verification
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: random801@example.com
+                phone:
+                  type: integer
+                  example: '9741689372'
+      security:
+        - noauthAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v2/reset-password:
+    post:
+      tags:
+        - APIs > Auth > v2
+      summary: reset password
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: random801@example.com
+                password:
+                  type: string
+                  example: P@ssw0rd
+                password_confirmation:
+                  type: string
+                  example: P@ssw0rd
+                token:
+                  type: integer
+                  example: '681133'
+                phone:
+                  type: integer
+                  example: '9741689372'
+      security:
+        - noauthAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/login:
+    post:
+      tags:
+        - APIs > Auth
+      summary: login
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: perfectkid23@gmail.com
+                password:
+                  type: string
+                  example: Tomato!23
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/logout:
+    post:
+      tags:
+        - APIs > Auth
+      summary: logout
+      requestBody:
+        content: {}
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/refresh-token/{refresh_token}:
+    get:
+      tags:
+        - APIs > Auth
+      summary: refresh token
+      parameters:
+        - name: refresh_token
+          in: path
+          schema:
+            type: string
+          required: true
+          example: '{{refresh_token}}'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/verify-token:
+    post:
+      tags:
+        - APIs > Auth
+      summary: verify token
+      requestBody:
+        content: {}
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/user-detail:
+    get:
+      tags:
+        - APIs > Auth
+      summary: user detail
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/update-user-detail:
+    post:
+      tags:
+        - APIs > Auth
+      summary: update user detail
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                _method:
+                  type: string
+                  example: PUT
+                name:
+                  type: string
+                  example: nebaye84081
+                status:
+                  type: string
+                  example: active
+                phone:
+                  type: string
+                image:
+                  type: string
+                  format: binary
+                delete_image:
+                  type: string
+                  description: true|false
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/change-password:
+    post:
+      tags:
+        - APIs > Auth
+      summary: change password
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                _method:
+                  type: string
+                  example: PUT
+                old_password:
+                  type: string
+                  example: P@ssw0rd
+                password:
+                  type: string
+                  example: P@ssw0rd123
+                password_confirmation:
+                  type: string
+                  example: P@ssw0rd123
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/delete-user:
+    delete:
+      tags:
+        - APIs > Auth
+      summary: delete user
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/register:
+    post:
+      tags:
+        - APIs > Auth
+      summary: register
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: niyijog593
+                email:
+                  type: string
+                  example: niyijog593@ihnpo.com
+                password:
+                  type: string
+                  example: P@ssw0rd
+                password_confirmation:
+                  type: string
+                  example: P@ssw0rd
+                phone:
+                  type: string
+                  example: +977-9741689372
+      security:
+        - noauthAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/resend-account-verification-mail:
+    post:
+      tags:
+        - APIs > Auth
+      summary: resend account verification mail
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: xejarem751@nab4.com
+      security:
+        - noauthAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/account-verification:
+    post:
+      tags:
+        - APIs > Auth
+      summary: account verification
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: niyijog593@ihnpo.com
+                token:
+                  type: integer
+                  example: '675844'
+      security:
+        - noauthAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/reset-password-mail:
+    post:
+      tags:
+        - APIs > Auth
+      summary: reset password  mail
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: niyijog593@ihnpo.com
+      security:
+        - noauthAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/reset-password-otp-verification:
+    post:
+      tags:
+        - APIs > Auth
+      summary: reset password otp verification
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: niyijog593@ihnpo.com
+                token:
+                  type: integer
+                  example: '780510'
+      security:
+        - noauthAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/reset-password:
+    post:
+      tags:
+        - APIs > Auth
+      summary: reset password
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: niyijog593@ihnpo.com
+                password:
+                  type: string
+                  example: P@ssw0rd
+                password_confirmation:
+                  type: string
+                  example: P@ssw0rd
+                token:
+                  type: integer
+                  example: '580494'
+      security:
+        - noauthAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}

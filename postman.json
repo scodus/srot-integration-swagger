@@ -1,0 +1,2593 @@
+{
+	"info": {
+		"_postman_id": "2bb5a138-7ad0-4822-a74f-ecf44ba2f8de",
+		"name": "SROT Integration",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42517497",
+		"_collection_link": "https://bikash-projects.postman.co/workspace/Bikash's-Workspace~07b4d747-08b6-4eac-9f94-41a4bad205fa/collection/34655126-2bb5a138-7ad0-4822-a74f-ecf44ba2f8de?action=share&source=collection_link&creator=42517497"
+	},
+	"item": [
+		{
+			"name": "APIs SUPERADMIN PANEL",
+			"item": [
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"if (pm.response && pm.response.json) {",
+											"    const response = pm.response.json();",
+											"    pm.environment.set('token', response.data.token);",
+											"    pm.environment.set('access_token', response.data.access_token);",
+											"    pm.environment.set('refresh_token', response.data.refresh_token);",
+											"} else {",
+											"    console.log('Response is not in JSON format or pm.response is undefined');",
+											"    console.log(pm.response);",
+											"    //   throw new Error('Response is not in JSON format or pm.response is undefined');",
+											"}",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "superadmin@superadmin.com",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "password",
+											"value": "P@ssw0rd",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "superadmin@gmail.com",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "password",
+											"value": "password",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "email",
+											"value": "scodusnp@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "Scodus!23",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{finoraAuth}}/api/superadmin/login",
+									"host": [
+										"{{finoraAuth}}"
+									],
+									"path": [
+										"api",
+										"superadmin",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "logout",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{url}}/api/superadmin/logout",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"superadmin",
+										"logout"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "refresh token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json()",
+											"pm.environment.set('token', response.data.access_token)",
+											"pm.environment.set('access_token', response.data.access_token)",
+											"pm.environment.set('refresh_token', response.data.refresh_token)"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{url}}/api/superadmin/refresh-token/:refresh_token",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"superadmin",
+										"refresh-token",
+										":refresh_token"
+									],
+									"variable": [
+										{
+											"key": "refresh_token",
+											"value": "{{refresh_token}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "verify token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/superadmin/verify-token",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"superadmin",
+										"verify-token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "user detail",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "old_password",
+											"value": "P@ssw0rd",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "P@ssw0rd1",
+											"type": "text"
+										},
+										{
+											"key": "password_confirmation",
+											"value": "P@ssw0rd1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/api/superadmin/user-detail",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"superadmin",
+										"user-detail"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update user detail",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "P@ssw0rd",
+											"type": "text"
+										},
+										{
+											"key": "image",
+											"type": "file",
+											"src": []
+										},
+										{
+											"key": "delete_image",
+											"value": "true",
+											"description": "true|false",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/api/superadmin/update-user-detail",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"superadmin",
+										"update-user-detail"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "change password",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "old_password",
+											"value": "P@ssw0rd",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "P@ssw0rd1",
+											"type": "text"
+										},
+										{
+											"key": "password_confirmation",
+											"value": "P@ssw0rd1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/api/superadmin/change-password",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"superadmin",
+										"change-password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/superadmin/delete-user",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"superadmin",
+										"delete-user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "register",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "0000",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "yamaki9115@regapts.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "P@ssw0rd",
+											"type": "text"
+										},
+										{
+											"key": "password_confirmation",
+											"value": "P@ssw0rd",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/api/superadmin/register",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"superadmin",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "account verification",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "yamaki9115@regapts.com",
+											"type": "text"
+										},
+										{
+											"key": "token",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/api/superadmin/account-verification",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"superadmin",
+										"account-verification"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "resend account verification mail",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "yamaki9115@regapts.com",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/api/superadmin/resend-account-verification-mail",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"superadmin",
+										"resend-account-verification-mail"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "reset password  mail",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "yamaki9115@regapts.com",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/api/superadmin/reset-password-mail",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"superadmin",
+										"reset-password-mail"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "reset password otp verification",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "yamaki9115@regapts.com",
+											"type": "text"
+										},
+										{
+											"key": "token",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/api/superadmin/reset-password-otp-verification",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"superadmin",
+										"reset-password-otp-verification"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "reset password",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "yamaki9115@regapts.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "password_confirmation",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "token",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/api/superadmin/reset-password",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"superadmin",
+										"reset-password"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Replica DB Status Check",
+					"item": [
+						{
+							"name": "Replica Status",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNjlhMzRmMjFhN2Y3NDZiYWNmNDY3ZDA0OTMyYmJlZWVhYjExZWM4NmU2Y2FjYjcwZmZhM2VjMDhlZTg4NWVhNzlhM2FkZTM5YTFjOTI1ZTMiLCJpYXQiOjE3NjMwMTczNzguNjI1OTUxLCJuYmYiOjE3NjMwMTczNzguNjI1OTU3LCJleHAiOjE3NjU2MDkzNzguNjE5NTQ4LCJzdWIiOiIxIiwic2NvcGVzIjpbIioiXX0.T2HrHIwDOzXq5dMYWNBRclBgzmznSS4zKx9Cfy6a0D6oHBIZjlT6WSU41r9tFr8PeFvNFa4W55Wwrv917GRNQSQWZxetv2zoU0nT3Bv9oEmlv9agIxqF3gJEzCn-5zRw94nGU5usDMwTcwzlE8veylKcOgczPyDpDFDaL6IYZ0ro5m8jZ6GjhMbU4zufrWe3a1-TJgCHlv0ZMx2dVBiIkFcFwEMGbtv29F8r3NFlajW1JrSv9weN39SmN2Bw4ydPtJHXQTjwDHDBUyJ0JW5Jd4hAfrQd69IOXJbbo4X2_dFV3Z-oTcrfy1upacTfTAdC3tEPOtGyUoqL1sjNVU1jeo8g3ErfHrdrZhP_kSDeXYZYbpOrInGPVv0Wd5mmnVo_sqakXg3RGvrbSiyCf3FXaevh8b0itTknuKl6jghVHqIZ0UQAXU-9CzwV_6jfGL5EmwwvQha1T6JHZev7Kl8xE3lMgOtewgLKYaZEznOikdNoViyeKg1G2Y7vmlqY6knQn9oKmRZykp-ro9JyjURAv7twfCJt6JRJvaaDARSohzwFBzDcv0LIhu8J-3m6SUCbitUFlen6K9rAzpRV43rmzoQWVPZra-Ph6lNxNM7wnyRtdPaE2jEGN_pNry4VppKuNEp4Q7uD7rdQbkqHWKB427JE3YSH8DUDb90DTmX8jLE",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{finoraHospitality}}/api/superadmin/db-replica/status",
+									"host": [
+										"{{finoraHospitality}}"
+									],
+									"path": [
+										"api",
+										"superadmin",
+										"db-replica",
+										"status"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show Latest Error",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNjlhMzRmMjFhN2Y3NDZiYWNmNDY3ZDA0OTMyYmJlZWVhYjExZWM4NmU2Y2FjYjcwZmZhM2VjMDhlZTg4NWVhNzlhM2FkZTM5YTFjOTI1ZTMiLCJpYXQiOjE3NjMwMTczNzguNjI1OTUxLCJuYmYiOjE3NjMwMTczNzguNjI1OTU3LCJleHAiOjE3NjU2MDkzNzguNjE5NTQ4LCJzdWIiOiIxIiwic2NvcGVzIjpbIioiXX0.T2HrHIwDOzXq5dMYWNBRclBgzmznSS4zKx9Cfy6a0D6oHBIZjlT6WSU41r9tFr8PeFvNFa4W55Wwrv917GRNQSQWZxetv2zoU0nT3Bv9oEmlv9agIxqF3gJEzCn-5zRw94nGU5usDMwTcwzlE8veylKcOgczPyDpDFDaL6IYZ0ro5m8jZ6GjhMbU4zufrWe3a1-TJgCHlv0ZMx2dVBiIkFcFwEMGbtv29F8r3NFlajW1JrSv9weN39SmN2Bw4ydPtJHXQTjwDHDBUyJ0JW5Jd4hAfrQd69IOXJbbo4X2_dFV3Z-oTcrfy1upacTfTAdC3tEPOtGyUoqL1sjNVU1jeo8g3ErfHrdrZhP_kSDeXYZYbpOrInGPVv0Wd5mmnVo_sqakXg3RGvrbSiyCf3FXaevh8b0itTknuKl6jghVHqIZ0UQAXU-9CzwV_6jfGL5EmwwvQha1T6JHZev7Kl8xE3lMgOtewgLKYaZEznOikdNoViyeKg1G2Y7vmlqY6knQn9oKmRZykp-ro9JyjURAv7twfCJt6JRJvaaDARSohzwFBzDcv0LIhu8J-3m6SUCbitUFlen6K9rAzpRV43rmzoQWVPZra-Ph6lNxNM7wnyRtdPaE2jEGN_pNry4VppKuNEp4Q7uD7rdQbkqHWKB427JE3YSH8DUDb90DTmX8jLE",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"connection\" : \"hospitality\" //integration,hospitality,non_ird_accounting,ird_accounting\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{finoraHospitality}}/api/superadmin/db-replica/show-latest-error",
+									"host": [
+										"{{finoraHospitality}}"
+									],
+									"path": [
+										"api",
+										"superadmin",
+										"db-replica",
+										"show-latest-error"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Replicate Start",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNjlhMzRmMjFhN2Y3NDZiYWNmNDY3ZDA0OTMyYmJlZWVhYjExZWM4NmU2Y2FjYjcwZmZhM2VjMDhlZTg4NWVhNzlhM2FkZTM5YTFjOTI1ZTMiLCJpYXQiOjE3NjMwMTczNzguNjI1OTUxLCJuYmYiOjE3NjMwMTczNzguNjI1OTU3LCJleHAiOjE3NjU2MDkzNzguNjE5NTQ4LCJzdWIiOiIxIiwic2NvcGVzIjpbIioiXX0.T2HrHIwDOzXq5dMYWNBRclBgzmznSS4zKx9Cfy6a0D6oHBIZjlT6WSU41r9tFr8PeFvNFa4W55Wwrv917GRNQSQWZxetv2zoU0nT3Bv9oEmlv9agIxqF3gJEzCn-5zRw94nGU5usDMwTcwzlE8veylKcOgczPyDpDFDaL6IYZ0ro5m8jZ6GjhMbU4zufrWe3a1-TJgCHlv0ZMx2dVBiIkFcFwEMGbtv29F8r3NFlajW1JrSv9weN39SmN2Bw4ydPtJHXQTjwDHDBUyJ0JW5Jd4hAfrQd69IOXJbbo4X2_dFV3Z-oTcrfy1upacTfTAdC3tEPOtGyUoqL1sjNVU1jeo8g3ErfHrdrZhP_kSDeXYZYbpOrInGPVv0Wd5mmnVo_sqakXg3RGvrbSiyCf3FXaevh8b0itTknuKl6jghVHqIZ0UQAXU-9CzwV_6jfGL5EmwwvQha1T6JHZev7Kl8xE3lMgOtewgLKYaZEznOikdNoViyeKg1G2Y7vmlqY6knQn9oKmRZykp-ro9JyjURAv7twfCJt6JRJvaaDARSohzwFBzDcv0LIhu8J-3m6SUCbitUFlen6K9rAzpRV43rmzoQWVPZra-Ph6lNxNM7wnyRtdPaE2jEGN_pNry4VppKuNEp4Q7uD7rdQbkqHWKB427JE3YSH8DUDb90DTmX8jLE",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"connection\" : \"integration\" //integration,hospitality,non_ird_accounting,ird_accounting\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{finoraHospitality}}/api/superadmin/db-replica/start",
+									"host": [
+										"{{finoraHospitality}}"
+									],
+									"path": [
+										"api",
+										"superadmin",
+										"db-replica",
+										"start"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Replicate Stop",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNjlhMzRmMjFhN2Y3NDZiYWNmNDY3ZDA0OTMyYmJlZWVhYjExZWM4NmU2Y2FjYjcwZmZhM2VjMDhlZTg4NWVhNzlhM2FkZTM5YTFjOTI1ZTMiLCJpYXQiOjE3NjMwMTczNzguNjI1OTUxLCJuYmYiOjE3NjMwMTczNzguNjI1OTU3LCJleHAiOjE3NjU2MDkzNzguNjE5NTQ4LCJzdWIiOiIxIiwic2NvcGVzIjpbIioiXX0.T2HrHIwDOzXq5dMYWNBRclBgzmznSS4zKx9Cfy6a0D6oHBIZjlT6WSU41r9tFr8PeFvNFa4W55Wwrv917GRNQSQWZxetv2zoU0nT3Bv9oEmlv9agIxqF3gJEzCn-5zRw94nGU5usDMwTcwzlE8veylKcOgczPyDpDFDaL6IYZ0ro5m8jZ6GjhMbU4zufrWe3a1-TJgCHlv0ZMx2dVBiIkFcFwEMGbtv29F8r3NFlajW1JrSv9weN39SmN2Bw4ydPtJHXQTjwDHDBUyJ0JW5Jd4hAfrQd69IOXJbbo4X2_dFV3Z-oTcrfy1upacTfTAdC3tEPOtGyUoqL1sjNVU1jeo8g3ErfHrdrZhP_kSDeXYZYbpOrInGPVv0Wd5mmnVo_sqakXg3RGvrbSiyCf3FXaevh8b0itTknuKl6jghVHqIZ0UQAXU-9CzwV_6jfGL5EmwwvQha1T6JHZev7Kl8xE3lMgOtewgLKYaZEznOikdNoViyeKg1G2Y7vmlqY6knQn9oKmRZykp-ro9JyjURAv7twfCJt6JRJvaaDARSohzwFBzDcv0LIhu8J-3m6SUCbitUFlen6K9rAzpRV43rmzoQWVPZra-Ph6lNxNM7wnyRtdPaE2jEGN_pNry4VppKuNEp4Q7uD7rdQbkqHWKB427JE3YSH8DUDb90DTmX8jLE",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"connection\" : \"integration\" //integration,hospitality,non_ird_accounting,ird_accounting\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{finoraHospitality}}/api/superadmin/db-replica/start",
+									"host": [
+										"{{finoraHospitality}}"
+									],
+									"path": [
+										"api",
+										"superadmin",
+										"db-replica",
+										"start"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Replicate Skip Error",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNjlhMzRmMjFhN2Y3NDZiYWNmNDY3ZDA0OTMyYmJlZWVhYjExZWM4NmU2Y2FjYjcwZmZhM2VjMDhlZTg4NWVhNzlhM2FkZTM5YTFjOTI1ZTMiLCJpYXQiOjE3NjMwMTczNzguNjI1OTUxLCJuYmYiOjE3NjMwMTczNzguNjI1OTU3LCJleHAiOjE3NjU2MDkzNzguNjE5NTQ4LCJzdWIiOiIxIiwic2NvcGVzIjpbIioiXX0.T2HrHIwDOzXq5dMYWNBRclBgzmznSS4zKx9Cfy6a0D6oHBIZjlT6WSU41r9tFr8PeFvNFa4W55Wwrv917GRNQSQWZxetv2zoU0nT3Bv9oEmlv9agIxqF3gJEzCn-5zRw94nGU5usDMwTcwzlE8veylKcOgczPyDpDFDaL6IYZ0ro5m8jZ6GjhMbU4zufrWe3a1-TJgCHlv0ZMx2dVBiIkFcFwEMGbtv29F8r3NFlajW1JrSv9weN39SmN2Bw4ydPtJHXQTjwDHDBUyJ0JW5Jd4hAfrQd69IOXJbbo4X2_dFV3Z-oTcrfy1upacTfTAdC3tEPOtGyUoqL1sjNVU1jeo8g3ErfHrdrZhP_kSDeXYZYbpOrInGPVv0Wd5mmnVo_sqakXg3RGvrbSiyCf3FXaevh8b0itTknuKl6jghVHqIZ0UQAXU-9CzwV_6jfGL5EmwwvQha1T6JHZev7Kl8xE3lMgOtewgLKYaZEznOikdNoViyeKg1G2Y7vmlqY6knQn9oKmRZykp-ro9JyjURAv7twfCJt6JRJvaaDARSohzwFBzDcv0LIhu8J-3m6SUCbitUFlen6K9rAzpRV43rmzoQWVPZra-Ph6lNxNM7wnyRtdPaE2jEGN_pNry4VppKuNEp4Q7uD7rdQbkqHWKB427JE3YSH8DUDb90DTmX8jLE",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"connection\" : \"integration\" //integration,hospitality,non_ird_accounting,ird_accounting\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{finoraHospitality}}/api/superadmin/db-replica/start",
+									"host": [
+										"{{finoraHospitality}}"
+									],
+									"path": [
+										"api",
+										"superadmin",
+										"db-replica",
+										"start"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Replicate Reset",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNjlhMzRmMjFhN2Y3NDZiYWNmNDY3ZDA0OTMyYmJlZWVhYjExZWM4NmU2Y2FjYjcwZmZhM2VjMDhlZTg4NWVhNzlhM2FkZTM5YTFjOTI1ZTMiLCJpYXQiOjE3NjMwMTczNzguNjI1OTUxLCJuYmYiOjE3NjMwMTczNzguNjI1OTU3LCJleHAiOjE3NjU2MDkzNzguNjE5NTQ4LCJzdWIiOiIxIiwic2NvcGVzIjpbIioiXX0.T2HrHIwDOzXq5dMYWNBRclBgzmznSS4zKx9Cfy6a0D6oHBIZjlT6WSU41r9tFr8PeFvNFa4W55Wwrv917GRNQSQWZxetv2zoU0nT3Bv9oEmlv9agIxqF3gJEzCn-5zRw94nGU5usDMwTcwzlE8veylKcOgczPyDpDFDaL6IYZ0ro5m8jZ6GjhMbU4zufrWe3a1-TJgCHlv0ZMx2dVBiIkFcFwEMGbtv29F8r3NFlajW1JrSv9weN39SmN2Bw4ydPtJHXQTjwDHDBUyJ0JW5Jd4hAfrQd69IOXJbbo4X2_dFV3Z-oTcrfy1upacTfTAdC3tEPOtGyUoqL1sjNVU1jeo8g3ErfHrdrZhP_kSDeXYZYbpOrInGPVv0Wd5mmnVo_sqakXg3RGvrbSiyCf3FXaevh8b0itTknuKl6jghVHqIZ0UQAXU-9CzwV_6jfGL5EmwwvQha1T6JHZev7Kl8xE3lMgOtewgLKYaZEznOikdNoViyeKg1G2Y7vmlqY6knQn9oKmRZykp-ro9JyjURAv7twfCJt6JRJvaaDARSohzwFBzDcv0LIhu8J-3m6SUCbitUFlen6K9rAzpRV43rmzoQWVPZra-Ph6lNxNM7wnyRtdPaE2jEGN_pNry4VppKuNEp4Q7uD7rdQbkqHWKB427JE3YSH8DUDb90DTmX8jLE",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"connection\" : \"integration\" //integration,hospitality,non_ird_accounting,ird_accounting\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{finoraHospitality}}/api/superadmin/db-replica/start",
+									"host": [
+										"{{finoraHospitality}}"
+									],
+									"path": [
+										"api",
+										"superadmin",
+										"db-replica",
+										"start"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "APIs",
+			"item": [
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "v2",
+							"item": [
+								{
+									"name": "login",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"if (pm.response && pm.response.json) {\r",
+													"    const response = pm.response.json();\r",
+													"    pm.environment.set('token', response.data.access_token);\r",
+													"    pm.environment.set('access_token', response.data.access_token);\r",
+													"    pm.environment.set('refresh_token', response.data.refresh_token);\r",
+													"\r",
+													"    //   // Optionally also set in globals\r",
+													"    // pm.globals.set('token', accessToken);\r",
+													"    // pm.globals.set('refresh_token', refreshToken);\r",
+													"\r",
+													"    // // Optionally also set in collection variables\r",
+													"    // pm.collectionVariables.set('token', accessToken);\r",
+													"    // pm.collectionVariables.set('refresh_token', refreshToken);\r",
+													"} else {\r",
+													"    console.log('Response is not in JSON format or pm.response is undefined');\r",
+													"    console.log(pm.response);\r",
+													"    //   throw new Error('Response is not in JSON format or pm.response is undefined');\r",
+													"}\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {},
+												"requests": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {},
+												"requests": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "company-id",
+												"value": "5",
+												"type": "text",
+												"disabled": true
+											},
+											{
+												"key": "ird-type",
+												"value": "",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "email",
+													"value": "nebaye8408@simerm.com",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "password",
+													"value": "P@ssw0rd",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "email",
+													"value": "kimchifastfoods@gmail.com",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "password",
+													"value": "Kimchi@@@3",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "email",
+													"value": "random801@example.com",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "phone",
+													"value": "9741689372",
+													"type": "text"
+												},
+												{
+													"key": "password",
+													"value": "P@ssw0rd",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{url}}/api/v2/login",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												"v2",
+												"login"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "register",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {},
+												"requests": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "niyijog801",
+													"type": "text"
+												},
+												{
+													"key": "email",
+													"value": "random801@example.com",
+													"type": "text"
+												},
+												{
+													"key": "password",
+													"value": "P@ssw0rd",
+													"type": "text"
+												},
+												{
+													"key": "password_confirmation",
+													"value": "P@ssw0rd",
+													"type": "text"
+												},
+												{
+													"key": "phone",
+													"value": "9741689372",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{url}}/api/v2/register",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												"v2",
+												"register"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "request account verification",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {},
+												"requests": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {},
+												"requests": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "email",
+													"value": "random801@example.com",
+													"type": "text"
+												},
+												{
+													"key": "phone",
+													"value": "9741689372",
+													"type": "text",
+													"disabled": true
+												}
+											]
+										},
+										"url": {
+											"raw": "{{url}}/api/v2/resend-account-verification-mail",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												"v2",
+												"resend-account-verification-mail"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "account verification",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {},
+												"requests": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "email",
+													"value": "random801@example.com",
+													"type": "text"
+												},
+												{
+													"key": "token",
+													"value": "670937",
+													"type": "text"
+												},
+												{
+													"key": "phone",
+													"value": "9741689372",
+													"type": "text",
+													"disabled": true
+												}
+											]
+										},
+										"url": {
+											"raw": "{{url}}/api/v2/account-verification",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												"v2",
+												"account-verification"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "reset password otp verification",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {},
+												"requests": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "email",
+													"value": "random801@example.com",
+													"type": "text"
+												},
+												{
+													"key": "phone",
+													"value": "9741689372",
+													"type": "text",
+													"disabled": true
+												}
+											]
+										},
+										"url": {
+											"raw": "{{url}}/api/v2/reset-password-otp-verification",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												"v2",
+												"reset-password-otp-verification"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "reset password",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {},
+												"requests": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "email",
+													"value": "random801@example.com",
+													"type": "text"
+												},
+												{
+													"key": "password",
+													"value": "P@ssw0rd",
+													"type": "text"
+												},
+												{
+													"key": "password_confirmation",
+													"value": "P@ssw0rd",
+													"type": "text"
+												},
+												{
+													"key": "token",
+													"value": "681133",
+													"type": "text"
+												},
+												{
+													"key": "phone",
+													"value": "9741689372",
+													"type": "text",
+													"disabled": true
+												}
+											]
+										},
+										"url": {
+											"raw": "{{url}}/api/v2/reset-password",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												"v2",
+												"reset-password"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"if (pm.response && pm.response.json) {\r",
+											"    const response = pm.response.json();\r",
+											"    pm.environment.set('token', response.data.access_token);\r",
+											"    pm.environment.set('access_token', response.data.access_token);\r",
+											"    pm.environment.set('refresh_token', response.data.refresh_token);\r",
+											"\r",
+											"    //   // Optionally also set in globals\r",
+											"    // pm.globals.set('token', accessToken);\r",
+											"    // pm.globals.set('refresh_token', refreshToken);\r",
+											"\r",
+											"    // // Optionally also set in collection variables\r",
+											"    // pm.collectionVariables.set('token', accessToken);\r",
+											"    // pm.collectionVariables.set('refresh_token', refreshToken);\r",
+											"} else {\r",
+											"    console.log('Response is not in JSON format or pm.response is undefined');\r",
+											"    console.log(pm.response);\r",
+											"    //   throw new Error('Response is not in JSON format or pm.response is undefined');\r",
+											"}\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "company-id",
+										"value": "5",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "ird-type",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "nebaye8408@simerm.com",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "password",
+											"value": "P@ssw0rd",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "email",
+											"value": "kimchifastfoods@gmail.com",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "password",
+											"value": "Kimchi@@@3",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "email",
+											"value": "perfectkid23@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "Tomato!23",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/api/login",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "logout",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"    pm.environment.set('token', null);\r",
+											"    pm.environment.set('refresh_token',null);\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/logout",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"logout"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "refresh token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"if (pm.response && pm.response.json) {\r",
+											"const response = pm.response.json()\r",
+											"pm.environment.set('token', response.data.access_token)\r",
+											"pm.environment.set('access_token', response.data.access_token)\r",
+											"pm.environment.set('refresh_token', response.data.refresh_token)\r",
+											"\r",
+											"} else {\r",
+											"    console.log('Response is not in JSON format or pm.response is undefined');\r",
+											"    console.log(pm.response);\r",
+											"    //   throw new Error('Response is not in JSON format or pm.response is undefined');\r",
+											"}\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/refresh-token/:refresh_token",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"refresh-token",
+										":refresh_token"
+									],
+									"variable": [
+										{
+											"key": "refresh_token",
+											"value": "{{refresh_token}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "verify token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/verify-token",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"verify-token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "user detail",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"disabled": true
+									},
+									{
+										"key": "company-id",
+										"value": "{{company-id}}",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{url}}/api/user-detail",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"user-detail"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update user detail",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "_method",
+											"value": "PUT",
+											"type": "text"
+										},
+										{
+											"key": "name",
+											"value": "nebaye84081",
+											"type": "text"
+										},
+										{
+											"key": "status",
+											"value": "active",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "phone",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/C:/Users/Scodus/Downloads/Pictures/Wings factory.jpg"
+										},
+										{
+											"key": "delete_image",
+											"value": "",
+											"description": "true|false",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/api/update-user-detail",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"update-user-detail"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "change password",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "_method",
+											"value": "PUT",
+											"type": "text"
+										},
+										{
+											"key": "old_password",
+											"value": "P@ssw0rd",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "P@ssw0rd123",
+											"type": "text"
+										},
+										{
+											"key": "password_confirmation",
+											"value": "P@ssw0rd123",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/api/change-password",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"change-password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/delete-user",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"delete-user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "register",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "niyijog593",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "niyijog593@ihnpo.com",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "password",
+											"value": "P@ssw0rd",
+											"type": "text"
+										},
+										{
+											"key": "password_confirmation",
+											"value": "P@ssw0rd",
+											"type": "text"
+										},
+										{
+											"key": "phone",
+											"value": "+977-9741689372",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/api/register",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "resend account verification mail",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "xejarem751@nab4.com",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/api/resend-account-verification-mail",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"resend-account-verification-mail"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "account verification",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "niyijog593@ihnpo.com",
+											"type": "text"
+										},
+										{
+											"key": "token",
+											"value": "675844",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/api/account-verification",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"account-verification"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "reset password  mail",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "niyijog593@ihnpo.com",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/api/reset-password-mail",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"reset-password-mail"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "reset password otp verification",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "niyijog593@ihnpo.com",
+											"type": "text"
+										},
+										{
+											"key": "token",
+											"value": "780510",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/api/reset-password-otp-verification",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"reset-password-otp-verification"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "reset password",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "niyijog593@ihnpo.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "P@ssw0rd",
+											"type": "text"
+										},
+										{
+											"key": "password_confirmation",
+											"value": "P@ssw0rd",
+											"type": "text"
+										},
+										{
+											"key": "token",
+											"value": "580494",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/api/reset-password",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"reset-password"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "vercelUrl",
+			"value": "https://hospitality-api.scoduscorp.com/api",
+			"type": "default"
+		},
+		{
+			"key": "finoraHospitality",
+			"value": "https://api.hospitality.finoracloud.app",
+			"type": "default"
+		},
+		{
+			"key": "datalayaHospitality",
+			"value": "https://api.hospitality.datalaya.srotcloud.app",
+			"type": "default"
+		},
+		{
+			"key": "finoraAuth",
+			"value": "https://integration.finoracloud.app",
+			"type": "default"
+		}
+	]
+}
